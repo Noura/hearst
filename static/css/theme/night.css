@@ -35,7 +35,7 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: #eeeeee;
-  font-family: "Montserrat", Impact, sans-serif;
+  font-family: Helvetica, sans-serif;
   line-height: 0.9em;
   letter-spacing: -0.03em;
   text-transform: none;
@@ -48,7 +48,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: #e7ad52;
+  color: #cf0000;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
