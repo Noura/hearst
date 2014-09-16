@@ -1,7 +1,14 @@
 hearshties = {};
 
-// find jQuery objects, assign event listeners
 hearshties.init = function() {
+
+    // client-side templating
+    // thanks Ned http://www.njl.us/
+    hearshties.templates = {};
+    $('script[type="underscore/template"]').each(function(){
+        hearshties.templates[$(this).attr('id')] = _.template($(this).text());
+    });
+
     hearshties.api_headers = {
         'app_key':'bd4e742fb930b51e2e6637f415f1742f',
         'app_id':"26458f3f"
@@ -27,7 +34,24 @@ hearshties.submit_user_query = function(user_query) {
         type:'post',
         data: {'q':user_query},
         success: function(response) {
-            console.log(response)
+            console.log('response', response);
+            var data = JSON.parse(response);
+            console.log('data', data);
+            $('.slides section').each(function() {
+                var $this = $(this);
+                if ($this.attr('id') !== 'search-outer') {
+                    $this.remove();
+                }
+            });
+            var $slides = $('.slides');
+            console.log('data.response.docs.length', data.response.docs.length);
+            _.each(data.response.docs, function(d) {
+                console.log('making slide with d', d);
+                $slides.append(hearshties.templates.slide({d: d}));
+            });
+            if (data.response.docs.length > 0) {
+                Reveal.next();
+            }
         }
     })
 };

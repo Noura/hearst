@@ -35,22 +35,29 @@
 
                 </section>
 
-                <section>
-
-                    and here's another slide
-
-                </section>
-
-
             </div>
 
         </div>
+
+        <!-- TEMPLATES -->
+
+        <script type="underscore/template" id="slide">
+            <% // TODO i think we should inspect the JSON object in app.js not here %>
+            <% if (d.objname_s && d.objdescr_s) { %>
+                <section>
+                    <h1><%=d.objname_s%></h1>
+                    <p><%=d.objdescr_s%></p>
+                </section>
+            <% } %>
+        </script>
+
 
         <!-- JAVASCRIPT -->
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="static/js/head.min.js"></script>
         <script src="static/js/reveal.min.js"></script>
+        <script src="static/js/underscore-min.js"></script>
 
         <script>
 
