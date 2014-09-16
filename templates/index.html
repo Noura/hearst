@@ -42,13 +42,11 @@
         <!-- TEMPLATES -->
 
         <script type="underscore/template" id="slide">
-            <% // TODO i think we should inspect the JSON object in app.js not here %>
-            <% if (d.objname_s && d.objdescr_s) { %>
-                <section>
-                    <h1><%=d.objname_s%></h1>
-                    <p><%=d.objdescr_s%></p>
-                </section>
-            <% } %>
+            <section>
+                <h1><%=objname_s%></h1>
+                <img src="https://dev.cspace.berkeley.edu/pahma_project/imageserver/blobs/<%=blob_ss%>/derivatives/OriginalJpeg/content">
+                <p><%=objdescr_s%></p>
+            </section>
         </script>
 
 

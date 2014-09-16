@@ -44,10 +44,13 @@ hearshties.submit_user_query = function(user_query) {
                 }
             });
             var $slides = $('.slides');
-            console.log('data.response.docs.length', data.response.docs.length);
             _.each(data.response.docs, function(d) {
-                console.log('making slide with d', d);
-                $slides.append(hearshties.templates.slide({d: d}));
+                if (d.objname_s && d.objdescr_s && d.blob_ss) {
+                    console.log('artifact with sufficient data - making slide');
+                    $slides.append(hearshties.templates.slide(d));
+                } else {
+                    console.log('artifact has insufficient data - skipping');
+                }
             });
             if (data.response.docs.length > 0) {
                 Reveal.next();
