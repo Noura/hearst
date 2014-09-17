@@ -11,10 +11,12 @@ def index():
 def search():
 
     user_query = request.form['q']
+    print 'searching for user_query', user_query
 
     # we will return our own nicely formatted response
     # of nice artifacts that have images and good descriptions etc
     artifacts = []
+    want_n = 10
 
     url = 'https://apis-qa.berkeley.edu/hearst_museum/select'
     headers = {}
@@ -26,24 +28,34 @@ def search():
     params = {
         'q': 'objname_txt:' + user_query,
         'wt': 'json',
-        }
-    r = requests.get(url, params=params, headers=headers)
-    d = json.loads(r.text)
+        'start': 0,
+    }
 
-    for artifact in d['response']['docs']:
-        if 'objdescr_s' not in artifact \
-                or 'objname_txt' not in artifact \
-                or 'blob_ss' not in artifact:
-            continue
-        imgurl = img_url(artifact['blob_ss'][0])
-        imgr = requests.get(imgurl)
-        if imgr.status_code != 200:
-            continue
-        artifacts.append({
-            'name': artifact['objname_txt'],
-            'desc': artifact['objdescr_s'],
-            'img_url': imgurl,
-        })
+    while len(artifacts) < want_n:
+        print 'about to search with params', params
+        r = requests.get(url, params=params, headers=headers)
+        d = json.loads(r.text)
+
+        if len(d['response']['docs']) == 0:
+            break;
+
+        params['start'] += len(d['response']['docs'])
+
+        for artifact in d['response']['docs']:
+            if 'objdescr_s' not in artifact \
+                    or 'objname_txt' not in artifact \
+                    or 'blob_ss' not in artifact:
+                continue
+            imgurl = img_url(artifact['blob_ss'][0])
+            imgr = requests.get(imgurl)
+            if imgr.status_code != 200:
+                continue
+            print 'adding artifact', artifact['objname_txt']
+            artifacts.append({
+                'name': artifact['objname_txt'],
+                'desc': artifact['objdescr_s'],
+                'img_url': imgurl,
+            })
 
     print json.dumps(artifacts, indent=4)
 
