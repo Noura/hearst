@@ -44,15 +44,10 @@ hearshties.submit_user_query = function(user_query) {
                 }
             });
             var $slides = $('.slides');
-            _.each(data.response.docs, function(d) {
-                if (d.objname_s && d.objdescr_s && d.blob_ss) {
-                    console.log('artifact with sufficient data - making slide');
-                    $slides.append(hearshties.templates.slide(d));
-                } else {
-                    console.log('artifact has insufficient data - skipping');
-                }
+            _.each(data.artifacts, function(d) {
+                $slides.append(hearshties.templates.slide(d));
             });
-            if (data.response.docs.length > 0) {
+            if (data.artifacts.length > 0) {
                 Reveal.next();
             }
         }

@@ -21,3 +21,22 @@ objcontextuse_s     The context in which the object was originally used
 objmaterials_ss     Materials from which the cataloged object was made
 objcomment_s    Additional, relevant information about an object
 objcollector_ss     The name(s) of the person(s) who collected the cataloged object
+
+
+# api query stuff
+
+    params = {
+        #'q': 'objculturetee_txt:Arctic',
+        #'q': 'objmaterials_txt:gold',
+        'q': 'objname_txt:' + user_query,
+        'wt': 'json',
+        'indent': True,
+        #'facet': 'true',
+        #'facet.field':'objculturetree_ss'
+        }
+    r = requests.get(url, params=params, headers=headers)
+
+    return json.dumps(json.loads(r.text), indent=4)
+
+
+
