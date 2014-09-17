@@ -20,6 +20,7 @@ hearshties.init = function() {
         if(ev.keyCode === 13) {
             console.log('submitting', hearshties.$search.val());
             hearshties.submit_user_query(hearshties.$search.val());
+            $('#search-button').hide()
         }
     });
 
@@ -34,6 +35,7 @@ hearshties.submit_user_query = function(user_query) {
         type:'post',
         data: {'q':user_query},
         success: function(response) {
+            $('#search-button').show()
             console.log('response', response);
             var data = JSON.parse(response);
             console.log('data', data);
@@ -48,7 +50,7 @@ hearshties.submit_user_query = function(user_query) {
                 $slides.append(hearshties.templates.slide(d));
             });
             if (data.artifacts.length > 0) {
-                Reveal.next();
+                setTimeout(function() { Reveal.next() }, 200)
             }
         }
     })
