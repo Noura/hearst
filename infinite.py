@@ -22,25 +22,31 @@ def api_search(params):
     return json.loads(r.text)
 
 @app.route('/search', methods=['POST'])
-def artifacts_search():
+def user_artifacts_search_wrapper():
+    key = 'objname_txt'
+    val = request.form['q']
     n_results = 10
-    user_query = request.form['q']
+    return json.dumps(artifacts_search(key, val, n_results))
 
+def artifacts_search(key, val, n_results):
     params = {
-            'q': 'objname_txt:' + user_query,
+            'q': key + ':' + val,
             'start': 0
     }
 
     artifacts = []
     while len(artifacts) < n_results:
         d = api_search(params)
+        #print json.dumps(d, indent=4)
         if len(d['response']['docs']) == 0:
             break
 
         params['start'] += len(d['response']['docs'])
 
         for artifact in d['response']['docs']:
-            print 'verbose thing', json.dumps(artifact, indent=4)
+            if len(artifacts) >= n_results:
+                break
+            #print 'verbose thing', json.dumps(artifact, indent=4)
             if 'objdescr_s' not in artifact \
                     or 'objname_txt' not in artifact \
                     or 'blob_ss' not in artifact:
@@ -49,14 +55,39 @@ def artifacts_search():
             imgr = requests.get(imgurl)
             if imgr.status_code != 200:
                 continue
-            print 'adding artifact', artifact['objname_txt']
+            #print 'adding artifact', artifact['objname_txt']
             artifacts.append({
                 'name': artifact['objname_txt'],
                 'desc': artifact['objdescr_s'],
                 'img_url': imgurl,
             })
 
-    data = json.dumps({'query': user_query,'artifacts': artifacts}, indent=4)
+    data = {'query': val, 'artifacts': artifacts}
+    return data
+
+@app.route('/tiles', methods=['POST'])
+def tiles_search():
+    params = {
+            #'q': 'objculturetree_txt:*',
+            'facet': 'true',
+            'facet.field':'objculturetree_ss',
+    }
+    d = api_search(params)
+    data = json.dumps(d, indent=4)
+    #print data
+
+    tiles = []
+    for cult in d['facet_counts']['facet_fields']['objculturetree_ss']:
+        if cult == 0 or cult == '!Kung' or cult == '@Move to Archaeology':
+            continue
+        print cult
+        artifacts_d = artifacts_search('objculturetree_ss', cult, 1)
+        artifacts = artifacts_d['artifacts']
+        if len(artifacts) > 0:
+            tiles.append(artifacts[0])
+
+    data = json.dumps({'tiles': tiles}, indent=4)
+    print data
     return data
 
 if __name__ == '__main__':
