@@ -97,6 +97,3 @@ if __name__ == '__main__':
 
 
 
-# #2908 Adeline
-
-
