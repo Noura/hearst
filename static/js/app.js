@@ -30,12 +30,10 @@ hearshties.init = function() {
 
 hearshties.submit_user_query = function(user_query) {
     $.ajax({
-        url:'search',
-        type:'post',
+        url:'getculture',
+        type:'get',
         data: {'q':user_query},
-        success: function(response) {
-            console.log('response', response);
-            var data = JSON.parse(response);
+        success: function(data) {
             console.log('data', data);
             $('.slides section').each(function() {
                 var $this = $(this);
@@ -44,11 +42,16 @@ hearshties.submit_user_query = function(user_query) {
                 }
             });
             var $slides = $('.slides');
-            _.each(data.artifacts, function(d) {
-                $slides.append(hearshties.templates.slide(d));
+            console.log('data.artifacts', data.artifacts);
+            _.each(data.artifacts, function(img_url, id) {
+                $slides.append(hearshties.templates.slide({
+                    'img_url': img_url,
+                }));
             });
             if (data.artifacts.length > 0) {
-                Reveal.next();
+                setTimeout(function() {
+                    Reveal.next();
+                }, 500);
             }
         }
     })
