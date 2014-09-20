@@ -34,24 +34,27 @@ hearshties.submit_user_query = function() {
         data: {},
         success: function(data) {
             console.log('data', data);
+            // remove everything except the first (title) slide
             $('.slides section').each(function() {
                 var $this = $(this);
                 if ($this.attr('id') !== 'first-slide') {
                     $this.remove();
                 }
             });
+            // add a slide for each artifact 
             var $slides = $('.slides');
             _.each(data.artifacts, function(img_url, id) {
                 $slides.append(hearshties.templates.slide({
                     'img_url': img_url,
                 }));
+                console.log(img_url)
             });
             setTimeout(function() {
                 hearshties.go_button.going(data.culture_name);
                 setTimeout(function() {
                     Reveal.next();
                     hearshties.go_button.reset();
-                }, 500);
+                }, 1500);
             }, 3000);
         },
         failure: function(data) {
@@ -73,7 +76,7 @@ hearshties.go = function() {
     };
     that.going = function(culture_name) {
         that.$b.data('state', 'going');
-        that.$b.html(culture_name);
+        that.$b.html(culture_name + '!');
     };
     that.reset = function() {
         that.$b.data('state', '');
