@@ -1,29 +1,25 @@
-#search {
-    font-weight: 200;
-    font-family: helvetica;
-    color: #555;
-    padding: 0.2em;
-    height: 2em;
-    border-radius: 7px;
-    border-width: 0px;
-    background-color: rgb(200,200,201);
+#go {
+    width: 80%;
     box-sizing: border-box;
-    float: left;
+    margin-left: 10%;
+    border-width: 0;
+    border-radius: 5px;
+    height: 100px;
+    line-height: 100px;
     font-size: 50px;
-    width: 86%;
+    font-weight: 200;
+    color: #eee;
+    background-color: rgb(84, 74, 243);
+    content: 'Go';
 }
 
-#search-button {
-    display: inline-block;
-    float: left;
-    font-size: 100px;
-    height: 1em;
-    line-height: .85em;
-    font-weight: 100;
-    font-family: helvetica;
-    padding-left: 2%;
-    box-sizing: border-box;
-    width: 8%;
-    margin-left: 2%;
-    cursor: pointer;
+#go.loading {
+    content: 'Loading';
+    background-color: #847DF2;
+}
+
+#go.going {
+    content: 'Culture';
+    background-color: rgb(54, 43, 255);
+    box-shadow: 0px 0px 10px rgb(56, 43, 255);
 }
