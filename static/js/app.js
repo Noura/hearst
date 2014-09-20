@@ -55,7 +55,7 @@ hearshties.submit_user_query = function() {
                     Reveal.next();
                     hearshties.go_button.reset();
                 }, 1500);
-            }, 3000);
+            }, 100);
         },
         failure: function(data) {
             console.log('query failed with data', data);
