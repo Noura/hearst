@@ -43,7 +43,7 @@ hearshties.submit_user_query = function() {
             });
             // add a slide for each artifact 
             var $slides = $('.slides');
-            _.each(data.artifacts, function(img_url, id) {
+            _.each(data.culture_data, function(img_url, id) {
                 $slides.append(hearshties.templates.slide({
                     'img_url': img_url,
                 }));

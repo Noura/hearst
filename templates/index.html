@@ -28,8 +28,8 @@
 
                 <section id="first-slide">
 
-                    <h2>The Hearst Cultural Lottery</h2>
-                    <p>With over 30,000 cultural artifacts from all over the world, exploring the Hearst collection can be overwhelming. We pick a culture at random and send you on a deep dive into some of their most intriguing artifacts. Just Go when you're ready.</p>
+                    <h2>Hearst Collection Cultural Lottery</h2>
+                    <p>With over 30,000 artifacts from all over the world, exploring the Hearst collection can be overwhelming. We pick a culture at random and send you on a deep dive into some of their most intriguing artifacts. Press Go when you're ready.</p>
                     <div id="go" data-state="">Go</div>
 
                 </section>
@@ -59,13 +59,14 @@
             // Full list of configuration options available here:
             // https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
-                controls: false,
+                controls: true,
                 progress: true,
                 history: false,
+                overview: false,
                 center: true,
 
                 theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'night', // default/cube/page/concave/zoom/linear/fade/none
+                transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
 
                 // Parallax scrolling
                 // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',

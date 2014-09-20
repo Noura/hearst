@@ -1,6 +1,7 @@
 #go {
     width: 80%;
     box-sizing: border-box;
+    margin-top:25px;
     margin-left: 10%;
     border-width: 0;
     border-radius: 5px;
@@ -9,7 +10,7 @@
     font-size: 50px;
     font-weight: 200;
     color: #eee;
-    background-color: rgb(84, 74, 243);
+    background-color: rgb(86,85,111);
     content: 'Go';
 }
 
