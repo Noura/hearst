@@ -46,9 +46,8 @@ def get_culture_summary(culture_name):
     except wikipedia.exceptions.DisambiguationError as e:
         return first_graf_of(wikipedia.summary(e.options[0], sentences=3))
     except wikipedia.exceptions.PageError as e:
-        get_culture_summary(wiki_results[0])
+        return 'Summary not found'
 
-    return 'Summary not found'
 
 def first_graf_of(paragraphs):
     return paragraphs.split('\n')[0]

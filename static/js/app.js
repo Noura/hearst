@@ -4,6 +4,7 @@ hearshties.keep_slide_id = 'first-slide';
 
 hearshties.init = function() {
 
+    hearshties.$intro_slide = $('#first-slide');
     hearshties.go_button = hearshties.go();
 
     // client-side templating
@@ -18,12 +19,7 @@ hearshties.init = function() {
         'app_id':"26458f3f"
         } // todo: this probably shouldnt be in a plaintext js file lol
 
-    hearshties.go_button.$b.on('click', function(ev) {
-        if (!hearshties.go_button.ready()) {
-            return;
-        }
-        hearshties.submit_user_query();
-    });
+    hearshties.go_button.init();
 };
 
 hearshties.submit_user_query = function() {
@@ -34,14 +30,7 @@ hearshties.submit_user_query = function() {
         data: {},
         success: function(data) {
             console.log('data', data);
-            // remove everything except the first (title) slide
-            $('.slides section').each(function() {
-                var $this = $(this);
-                if ($this.attr('id') !== 'first-slide') {
-                    $this.remove();
-                }
-            });
-            // add a slide for each artifact 
+            // add a slide for each artifact
             var $slides = $('.slides');
             $slides.append(hearshties.templates.summary({
                 'culture_name': data.culture_name,
@@ -56,13 +45,17 @@ hearshties.submit_user_query = function() {
                 hearshties.go_button.going(data.culture_name);
                 setTimeout(function() {
                     Reveal.next();
-                    hearshties.go_button.reset();
+                    hearshties.$intro_slide.remove();
+                    $slides.append(hearshties.$intro_slide);
+                    $(hearshties.$intro_slide.find('h2')[0]).html('Search again.')
+                    hearshties.$intro_slide.find('p').remove();
+                    hearshties.go_button.init();
                 }, 1500);
             }, 100);
         },
         failure: function(data) {
             console.log('query failed with data', data);
-            hearshties.go_button.reset();
+            hearshties.go_button.init();
         }
     });
 };
@@ -82,8 +75,15 @@ hearshties.go = function() {
         that.$b.attr('class', 'going');
         that.$b.html(culture_name + '!');
     };
-    that.reset = function() {
+    that.init= function() {
+        that.$b = $('#go'); // TODO is this necessary?
         that.$b.attr('class', '');
+        hearshties.go_button.$b.on('click', function(ev) {
+            if (!hearshties.go_button.ready()) {
+                return;
+            }
+            hearshties.submit_user_query();
+        });
         that.$b.html('Go');
     };
     return that;
