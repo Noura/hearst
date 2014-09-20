@@ -43,11 +43,14 @@ hearshties.submit_user_query = function() {
             });
             // add a slide for each artifact 
             var $slides = $('.slides');
+            $slides.append(hearshties.templates.summary({
+                'culture_name': data.culture_name,
+                'culture_summary': data.culture_summary,
+            }));
             _.each(data.culture_data, function(img_url, id) {
                 $slides.append(hearshties.templates.slide({
                     'img_url': img_url,
                 }));
-                console.log(img_url)
             });
             setTimeout(function() {
                 hearshties.go_button.going(data.culture_name);
@@ -67,19 +70,20 @@ hearshties.submit_user_query = function() {
 hearshties.go = function() {
     var that = {};
     that.$b = $('#go');
+    that.$b.attr('class', '');
     that.ready = function() {
-        return that.$b.data('state') === '';
+        return that.$b.attr('class') === '';
     };
     that.loading = function() {
-        that.$b.data('state', 'loading');
+        that.$b.attr('class', 'loading');
         that.$b.html('Loading...');
     };
     that.going = function(culture_name) {
-        that.$b.data('state', 'going');
+        that.$b.attr('class', 'going');
         that.$b.html(culture_name + '!');
     };
     that.reset = function() {
-        that.$b.data('state', '');
+        that.$b.attr('class', '');
         that.$b.html('Go');
     };
     return that;

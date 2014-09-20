@@ -1,3 +1,14 @@
+body.hearst {
+    background: #2f2d33; /* Old browsers */
+    background: -moz-linear-gradient(top, #2f2d33 0%, #36323f 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2f2d33), color-stop(100%,#36323f)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #2f2d33 0%,#36323f 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #2f2d33 0%,#36323f 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #2f2d33 0%,#36323f 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #2f2d33 0%,#36323f 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2d33', endColorstr='#36323f',GradientType=0 ); /* IE6-9 */
+}
+
 #go {
     width: 80%;
     box-sizing: border-box;
@@ -10,17 +21,57 @@
     font-size: 50px;
     font-weight: 200;
     color: #eee;
-    background-color: rgb(86,85,111);
+    background-color: rgb(72, 41, 119);
     content: 'Go';
 }
 
 #go.loading {
-    content: 'Loading';
-    background-color: #847DF2;
+    background-color: rgb(74, 62, 92);
+    color: rgb(104, 87, 121);
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
 }
 
 #go.going {
-    content: 'Culture';
-    background-color: rgb(54, 43, 255);
+    background-color: rgb(74, 16, 162);
     box-shadow: 0px 0px 10px rgb(56, 43, 255);
+    -webkit-transition: all 150ms;
+    -moz-transition: all 150ms;
+    -o-transition: all 150ms;
+    transition: all 150ms;
+}
+
+.reveal p {
+    font-weight:200;
+    font-family:'Helvetica Neue',sans-serif;
+}
+
+.reveal section .image img {
+    border-width: 0;
+}
+
+.reveal img.image {
+    border:none;
+}
+
+.reveal .controls div.navigate-right, .reveal .controls div.navigate-right.enabled {
+    border-left-color: rgb(98, 68, 145) !important;
+}
+
+.reveal .controls div.navigate-left, .reveal .controls div.navigate-left.enabled {
+    border-right-color: rgb(98, 68, 145) !important;
+}
+
+.reveal .controls div.navigate-up, .reveal .controls div.navigate-up.enabled {
+    border-bottom-color: rgb(98, 68, 145) !important;
+}
+
+.reveal .controls div.navigate-down, .reveal .controls div.navigate-down.enabled {
+    border-top-color: rgb(98, 68, 145) !important;
+}
+
+.reveal .progress span {
+    background: rgb(98, 68, 145) !important;
 }

@@ -40,13 +40,15 @@ def get_culture_summary(culture_name):
     wiki_results = wikipedia.search( culture_name )
     for result in wiki_results:
         if 'people' in result:
-            return first_graf_of(wikipedia.summary(result))
+            return first_graf_of(wikipedia.summary(result, sentences=3))
     try:
-        return first_graf_of(wikipedia.summary( culture_name ))
+        return first_graf_of(wikipedia.summary( culture_name, sentences=3 ))
     except wikipedia.exceptions.DisambiguationError as e:
-        return first_graf_of(wikipedia.summary(e.options[0]))
+        return first_graf_of(wikipedia.summary(e.options[0], sentences=3))
     except wikipedia.exceptions.PageError as e:
         get_culture_summary(wiki_results[0])
+
+    return 'Summary not found'
 
 def first_graf_of(paragraphs):
     return paragraphs.split('\n')[0]

@@ -19,7 +19,7 @@
         <script src="static/js/html5shiv.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body class="hearst">
 
         <div class="reveal">
 
@@ -42,7 +42,14 @@
 
         <script type="underscore/template" id="slide">
             <section>
-                <img src="<%=img_url%>">
+                <img class="image" src="<%=img_url%>">
+            </section>
+        </script>
+
+        <script type="underscore/template" id="summary">
+            <section>
+                <h2><%=culture_name%></h2>
+                <p><%=culture_summary%></p>
             </section>
         </script>
 
