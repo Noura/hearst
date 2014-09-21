@@ -14,14 +14,10 @@ hearshties.init = function() {
         hearshties.templates[$(this).attr('id')] = _.template($(this).text());
     });
 
-    hearshties.api_headers = {
-        'app_key':'bd4e742fb930b51e2e6637f415f1742f',
-        'app_id':"26458f3f"
-        } // todo: this probably shouldnt be in a plaintext js file lol
-
     hearshties.go_button.init();
 };
 
+// get culture, culture description from wikipedia, and images
 hearshties.submit_user_query = function() {
     hearshties.go_button.loading();
     $.ajax({
@@ -36,6 +32,7 @@ hearshties.submit_user_query = function() {
                 'culture_name': data.culture_name,
                 'culture_summary': data.culture_summary,
             }));
+	    // add each artifact image as a slide 
             _.each(data.culture_data, function(img_url, id) {
                 $slides.append(hearshties.templates.slide({
                     'img_url': img_url,
@@ -44,6 +41,7 @@ hearshties.submit_user_query = function() {
             setTimeout(function() {
                 hearshties.go_button.going(data.culture_name);
                 setTimeout(function() {
+                    // move explanatory page to the end of the slideshow and advance user to the culture description
                     Reveal.next();
                     hearshties.$intro_slide.remove();
                     $slides.append(hearshties.$intro_slide);
@@ -60,6 +58,7 @@ hearshties.submit_user_query = function() {
     });
 };
 
+// manages the state of the go button
 hearshties.go = function() {
     var that = {};
     that.$b = $('#go');
@@ -76,7 +75,7 @@ hearshties.go = function() {
         that.$b.html(culture_name + '!');
     };
     that.init= function() {
-        that.$b = $('#go'); // TODO is this necessary?
+        that.$b = $('#go'); 
         that.$b.attr('class', '');
         hearshties.go_button.$b.on('click', function(ev) {
             if (!hearshties.go_button.ready()) {

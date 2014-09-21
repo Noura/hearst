@@ -1,5 +1,6 @@
 import requests, json
 
+# list of all parent cultures
 parents = [
 	"@Africa",
 	"@Alaskan tribes",
@@ -155,12 +156,14 @@ def artifacts_search(key, val, n_results):
     return artifacts
 
 
-for parent_culture in parents[:1]:
+# iterate through all parent cultures
+for parent_culture in parents:
 
 	cultures = {}
 
 	print parent_culture
 
+	# find all child cultures of parent
 	params = {
 	    'q': 'objculturetree_ss:' + parent_culture,
 	    'wt': 'json',
@@ -171,6 +174,7 @@ for parent_culture in parents[:1]:
 	r = requests.get(url, params=params, headers=headers)
 	d = json.loads(r.text)
 
+	# for up to 6 top (most artifacts) child cultures, find up to 35 artifacts with images associated
 	subcults = {}
 	counter = 0
 	for c in d['facet_counts']['facet_fields']['objculturetree_ss']:
@@ -184,5 +188,11 @@ for parent_culture in parents[:1]:
 
 	cultures.update( subcults )
 
-	with open('good-cultures.json','a') as f:
+	# filter out those artifacts with odd names
+        for key in cultures.keys():
+		if key[0] == '<' or 'DO NOT USE' in key:
+			del cultures[key]
+
+	# write to a json file
+	with open('culturelist.json','a') as f:
 		f.write(json.dumps(cultures,indent=4))
