@@ -47,7 +47,7 @@ hearshties.submit_user_query = function() {
                     Reveal.next();
                     hearshties.$intro_slide.remove();
                     $slides.append(hearshties.$intro_slide);
-                    $(hearshties.$intro_slide.find('h2')[0]).html('Search again.')
+                    $(hearshties.$intro_slide.find('h1')[0]).html('Search again.')
                     hearshties.$intro_slide.find('p').remove();
                     hearshties.go_button.init();
                 }, 1500);
