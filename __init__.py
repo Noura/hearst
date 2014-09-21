@@ -51,9 +51,5 @@ def first_graf_of(paragraphs):
     return paragraphs.split('\n')[0]
 
 if __name__ == '__main__':
-    app.run(port=19984, debug=True)
-
-
-
-
+    app.run(port=19984)
 
